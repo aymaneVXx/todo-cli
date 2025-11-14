@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "todo-cli"
+version = "0.1.0"
+description = "Gestionnaire de tâches en ligne de commande"
+authors = ["Aymane <aymanelhachimi2004@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "todo_cli" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+typer = "*"
+rich = "*"
+pydantic = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+
