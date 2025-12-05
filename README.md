@@ -167,7 +167,20 @@ poetry run ruff check . --fix
 ```bash
 poetry run mypy todo_cli
 ```
+# Documentation
+
+La documentation de référence est générée automatiquement via **Sphinx**.
+
+- Docstrings : https://github.com/aymaneVXx/todo-cli/tree/main/todo_cli
+- Configuration Sphinx : https://github.com/aymaneVXx/todo-cli/blob/main/docs/source/conf.py
+- Documentation générée : https://github.com/aymaneVXx/todo-cli/tree/main/docs/build
+
+Pour régénérer la documentation :
+```bash
+poetry run sphinx-build -b html docs/source docs/build
+```
 # Licence
 
 Ce projet est distribué sous la licence **MIT**.  
 Vous pouvez consulter les détails dans le fichier [`LICENSE`](LICENSE).
+
