@@ -77,4 +77,97 @@ Ils couvrent :
 
 Pour générer les artefacts du projet (Wheel + source archive) :
 `poetry build`
+
 Les fichiers sont donc générés dans le dossier : `dist`.
+
+# Journalisation (Logging)
+
+Le projet utilise le module standard Python `logging` pour tracer l’exécution de la CLI.
+
+## Configuration
+
+La configuration est **centralisée** dans le fichier :
+`todo_cli/logging_config.py`
+
+* **Logger principal :** `todo_cli`
+
+## Niveaux de Log
+
+Les niveaux de sévérité suivants sont utilisés pour catégoriser les messages :
+
+* **DEBUG** : Détails techniques pour le développement (appels de commandes, paramètres reçus, logique de filtrage).
+* **INFO** : Opérations réussies (tâche ajoutée, liste affichée, tâche marquée comme terminée).
+* **WARNING** : Situations inattendues mais gérées ou erreurs utilisateur (ex : entrée invalide, deadline incorrecte, tentative de terminer une tâche déjà close).
+* **ERROR** : Problèmes empêchant une fonction de s'exécuter (ex : tâche introuvable par ID, erreurs système graves).
+
+## Destinations des Logs (Outputs)
+
+Les logs sont envoyés simultanément vers deux destinations :
+
+1. **Fichier rotatif :**
+   `~/.todo_cli/todo-cli.log`
+2. **Sortie standard (Console) :**
+   Affichage direct dans le terminal.
+
+## Initialisation
+
+La configuration est appliquée au démarrage de l'application dans `todo_cli/main.py`.
+
+```python
+from .logging_config import configure_logging
+configure_logging()
+```
+## Hooks pre-commit
+
+L’exécution de **Ruff** et **Mypy** est automatisée via `pre-commit`.
+Le fichier de configuration se trouve à la racine du projet :
+
+`.pre-commit-config.yaml`
+
+### Installation de pre-commit et activation du hook
+
+```bash
+poetry run pre-commit install
+```
+Cela installe un hook Git dans .git/hooks/pre-commit qui se lance automatiquement à chaque commit.
+### Lancer les hooks manuellement
+```bash
+poetry run pre-commit run --all-files
+```
+Si Ruff ou Mypy détectent des problèmes, le commit est bloqué tant que le code n’est pas corrigé.
+
+# Analyse statique du code
+
+Ce projet utilise deux outils d’analyse statique :
+
+- **Ruff** : linting, style, tri des imports
+- **Mypy** : vérification statique des types
+
+Ces outils sont déclarés dans `pyproject.toml` dans la section `[tool.poetry.dev-dependencies]`.
+
+### Installation (déjà gérée par Poetry)
+
+Les dépendances de dev sont installées avec :
+
+```bash
+poetry install
+```
+## Lancer l’analyse statique
+
+### Analyse Ruff
+
+```bash
+poetry run ruff check .
+```
+### Auto-fix
+```bash
+poetry run ruff check . --fix
+```
+### Analyse de types avec Mypy
+```bash
+poetry run mypy todo_cli
+```
+# Licence
+
+Ce projet est distribué sous la licence **MIT**.  
+Vous pouvez consulter les détails dans le fichier [`LICENSE`](LICENSE).
