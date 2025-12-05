@@ -11,8 +11,13 @@ DEFAULT_DB_PATH = Path.home() / ".todo_cli_tasks.json"
 
 
 def load_tasks(path: Path = DEFAULT_DB_PATH) -> List[Task]:
-    """Load tasks from the JSON file with full logging."""
+    """
+    Load all tasks from the JSON storage file.
 
+    Returns:
+        list[Task]: List of tasks stored in the JSON file.
+    """
+    
     if not path.exists():
         logger.warning("Le fichier de tâches n'existe pas : %s — création implicite", path)
         return []

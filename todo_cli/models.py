@@ -5,6 +5,17 @@ from pydantic import BaseModel, Field, field_validator
 
 
 class Task(BaseModel):
+    """
+    Represents a task in the todo application.
+
+    Attributes:
+        id (int): Unique identifier of the task.
+        title (str): Title of the task.
+        description (str | None): Optional description.
+        priority (int): Priority level from 1 to 5.
+        deadline (date | None): Optional deadline.
+        done (bool): Whether the task is completed.
+    """
     id: int
     title: str
     description: Optional[str] = ""

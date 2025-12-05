@@ -1,3 +1,14 @@
+"""
+Module principal de la CLI todo-cli.
+
+Ce module définit les commandes principales du gestionnaire de tâches :
+- add : ajouter une nouvelle tâche
+- list : afficher les tâches
+- done : marquer une tâche comme terminée
+
+Il configure également le système de logging et initialise l'application Typer.
+"""
+
 import logging
 from datetime import datetime
 
@@ -29,6 +40,25 @@ def add(
         help="Deadline YYYY-MM-DD",
     ),
 ) -> None:
+    """
+    Ajouter une nouvelle tâche à la liste.
+
+    Args:
+        title (str): Titre de la tâche à ajouter.
+        description (str): Description optionnelle de la tâche.
+        priority (int): Niveau de priorité (1 à 5).
+        deadline (str | None): Deadline au format YYYY-MM-DD.
+
+    Raises:
+        typer.BadParameter: Si la date n'est pas au bon format.
+
+    Effets de bord:
+        - Charge les tâches existantes.
+        - Valide et convertit la deadline.
+        - Ajoute une nouvelle tâche.
+        - Sauvegarde la liste mise à jour.
+        - Écrit un log de niveau INFO.
+    """
     logger.debug("Commande add appelée avec title=%s, priority=%s, deadline=%s", title, priority, deadline)
     tasks = load_tasks()
 
@@ -68,6 +98,20 @@ def list(
         help="Afficher les tâches terminées",
     ),
 ) -> None:
+    """
+    Afficher la liste des tâches.
+
+    Args:
+        show_done (bool): 
+            - True : affiche toutes les tâches
+            - False : affiche uniquement les tâches non terminées
+
+    Effets de bord:
+        - Charge toutes les tâches.
+        - Filtre les tâches selon 'show_done'.
+        - Affiche un tableau formaté via Rich.
+        - Log niveau DEBUG, WARNING ou INFO selon la situation.
+    """
     logger.debug("Commande list appelée avec show_done=%s", show_done)
     tasks = load_tasks()
     if not show_done:
@@ -99,6 +143,19 @@ def list(
 
 @app.command()
 def done(task_id: int) -> None:
+    """
+    Marquer une tâche comme terminée.
+
+    Args:
+        task_id (int): Identifiant de la tâche à marquer comme terminée.
+
+    Effets de bord:
+        - Charge les tâches existantes.
+        - Met à jour l'attribut 'done' si la tâche est trouvée.
+        - Sauvegarde la liste.
+        - Affiche un message de confirmation.
+        - Log INFO, WARNING ou ERROR selon la situation.
+    """
     logger.debug("Commande done appelée avec task_id=%s", task_id)
     tasks = load_tasks()
     for t in tasks:
