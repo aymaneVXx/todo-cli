@@ -16,6 +16,7 @@ pydantic = "*"
 pytest = "*"
 ruff = "^0.14.8"
 mypy = "^1.19.0"
+pre-commit = "^4.5.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -37,4 +38,5 @@ extend-select = ["I"]
 python_version = "3.10"
 ignore_missing_imports = true
 strict = false
+explicit_package_bases = true
 
