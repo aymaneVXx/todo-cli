@@ -9,7 +9,7 @@ from .logging_config import configure_logging
 from .models import Task
 from .storage import load_tasks, next_id, save_tasks
 
-# configuration du logging au démarrage du module
+# Configure logging once at startup
 configure_logging()
 logger = logging.getLogger("todo_cli")
 
@@ -29,6 +29,7 @@ def add(
         help="Deadline YYYY-MM-DD",
     ),
 ) -> None:
+    logger.debug("Commande add appelée avec title=%s, priority=%s, deadline=%s", title, priority, deadline)
     tasks = load_tasks()
 
     parsed_deadline: datetime | None = None
@@ -49,7 +50,13 @@ def add(
     tasks.append(task)
     save_tasks(tasks)
 
-    logger.info("Tâche ajoutée: id=%s, title=%s, priority=%s, deadline=%s", task.id, task.title, task.priority, task.deadline)
+    logger.info(
+        "Tâche ajoutée: id=%s, title=%s, priority=%s, deadline=%s",
+        task.id,
+        task.title,
+        task.priority,
+        task.deadline,
+    )
     console.print(f"[green]Tâche ajoutée ! ID={task.id}[/green]")
 
 
@@ -65,6 +72,9 @@ def list(
     tasks = load_tasks()
     if not show_done:
         tasks = [t for t in tasks if not t.done]
+        logger.debug("Filtrage des tâches non terminées, total=%s", len(tasks))
+
+    if not tasks:
         logger.warning("Aucune tâche à afficher (show_done=%s)", show_done)
 
     table = Table(title="Liste des tâches")
@@ -82,6 +92,7 @@ def list(
             t.deadline.strftime("%Y-%m-%d") if t.deadline else "-",
             "✔️" if t.done else "❌",
         )
+
     logger.info("Affichage de %s tâche(s)", len(tasks))
     console.print(table)
 
@@ -92,12 +103,17 @@ def done(task_id: int) -> None:
     tasks = load_tasks()
     for t in tasks:
         if t.id == task_id:
-            if t.done :
+            if t.done:
                 logger.warning("Tâche déjà marquée terminée: id=%s", task_id)
             t.done = True
             save_tasks(tasks)
             logger.info("Tâche marquée comme terminée: id=%s", task_id)
             console.print(f"[green]Tâche {task_id} terminée[/green]")
             return
+
     logger.error("Tâche introuvable pour task_id=%s", task_id)
     console.print(f"[red]Tâche {task_id} introuvable[/red]")
+
+
+if __name__ == "__main__":
+    app()

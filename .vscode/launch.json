@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug todo-cli list --todo-only",
+      "type": "python",
+      "request": "launch",
+      "module": "todo_cli.main",
+      "args": ["list", "--todo-only"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}
