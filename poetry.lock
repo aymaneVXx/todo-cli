@@ -48,6 +48,14 @@ optional = false
 python-versions = ">=3.10"
 
 [[package]]
+name = "librt"
+version = "0.6.3"
+description = "Mypyc runtime library"
+category = "dev"
+optional = false
+python-versions = ">=3.9"
+
+[[package]]
 name = "markdown-it-py"
 version = "4.0.0"
 description = "Python port of markdown-it. Markdown parsing, done right!"
@@ -76,9 +84,47 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "mypy"
+version = "1.19.0"
+description = "Optional static typing for Python"
+category = "dev"
+optional = false
+python-versions = ">=3.9"
+
+[package.dependencies]
+librt = ">=0.6.2"
+mypy_extensions = ">=1.0.0"
+pathspec = ">=0.9.0"
+tomli = {version = ">=1.1.0", markers = "python_version < \"3.11\""}
+typing_extensions = ">=4.6.0"
+
+[package.extras]
+dmypy = ["psutil (>=4.0)"]
+mypyc = ["setuptools (>=50)"]
+reports = ["lxml"]
+install-types = ["pip"]
+faster-cache = ["orjson"]
+
+[[package]]
+name = "mypy-extensions"
+version = "1.1.0"
+description = "Type system extensions for programs checked with the mypy type checker."
+category = "dev"
+optional = false
+python-versions = ">=3.8"
+
+[[package]]
 name = "packaging"
 version = "25.0"
 description = "Core utilities for Python packages"
+category = "dev"
+optional = false
+python-versions = ">=3.8"
+
+[[package]]
+name = "pathspec"
+version = "0.12.1"
+description = "Utility library for gitignore style pattern matching of file paths."
 category = "dev"
 optional = false
 python-versions = ">=3.8"
@@ -171,6 +217,14 @@ pygments = ">=2.13.0,<3.0.0"
 jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
 [[package]]
+name = "ruff"
+version = "0.14.8"
+description = "An extremely fast Python linter and code formatter, written in Rust."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "shellingham"
 version = "1.5.4"
 description = "Tool to Detect Surrounding Shell"
@@ -222,7 +276,7 @@ typing-extensions = ">=4.12.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "d53b83b839769cd6cbb9b738ab6c285219cb7cc800fa94c8f9e7fee7491b0df5"
+content-hash = "bb2652caef0ca22152a82b2de7747428675dfb07c983ec251407fcdc7e650ccd"
 
 [metadata.files]
 annotated-types = []
@@ -230,15 +284,20 @@ click = []
 colorama = []
 exceptiongroup = []
 iniconfig = []
+librt = []
 markdown-it-py = []
 mdurl = []
+mypy = []
+mypy-extensions = []
 packaging = []
+pathspec = []
 pluggy = []
 pydantic = []
 pydantic-core = []
 pygments = []
 pytest = []
 rich = []
+ruff = []
 shellingham = []
 tomli = []
 typer = []

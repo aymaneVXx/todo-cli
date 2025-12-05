@@ -1,6 +1,5 @@
-from pathlib import Path
 from todo_cli.models import Task
-from todo_cli.storage import save_tasks, load_tasks, next_id
+from todo_cli.storage import load_tasks, next_id, save_tasks
 
 
 def test_save_and_load(tmp_path):

@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from todo_cli.models import Task
 
 
