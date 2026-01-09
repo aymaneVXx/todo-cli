@@ -59,7 +59,12 @@ def add(
         - Sauvegarde la liste mise à jour.
         - Écrit un log de niveau INFO.
     """
-    logger.debug("Commande add appelée avec title=%s, priority=%s, deadline=%s", title, priority, deadline)
+    logger.debug(
+        "Commande add appelée avec title=%s, priority=%s, deadline=%s",
+        title,
+        priority,
+        deadline,
+    )
     tasks = load_tasks()
 
     parsed_deadline: datetime | None = None
@@ -102,7 +107,7 @@ def list(
     Afficher la liste des tâches.
 
     Args:
-        show_done (bool): 
+        show_done (bool):
             - True : affiche toutes les tâches
             - False : affiche uniquement les tâches non terminées
 

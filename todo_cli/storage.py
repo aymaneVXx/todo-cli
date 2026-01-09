@@ -17,9 +17,11 @@ def load_tasks(path: Path = DEFAULT_DB_PATH) -> List[Task]:
     Returns:
         list[Task]: List of tasks stored in the JSON file.
     """
-    
+
     if not path.exists():
-        logger.warning("Le fichier de tâches n'existe pas : %s — création implicite", path)
+        logger.warning(
+            "Le fichier de tâches n'existe pas : %s — création implicite", path
+        )
         return []
 
     try:
@@ -39,7 +41,9 @@ def load_tasks(path: Path = DEFAULT_DB_PATH) -> List[Task]:
         return []
 
     tasks = [Task(**item) for item in raw_data]
-    logger.debug("Chargement réussi : %s tâche(s) chargée(s) depuis %s", len(tasks), path)
+    logger.debug(
+        "Chargement réussi : %s tâche(s) chargée(s) depuis %s", len(tasks), path
+    )
 
     return tasks
 
@@ -51,8 +55,7 @@ def save_tasks(tasks: List[Task], path: Path = DEFAULT_DB_PATH) -> None:
 
     try:
         path.write_text(
-            json.dumps(data, indent=2, ensure_ascii=False),
-            encoding="utf-8"
+            json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
         )
     except OSError as exc:
         logger.critical("Erreur critique : impossible d'écrire dans %s : %s", path, exc)

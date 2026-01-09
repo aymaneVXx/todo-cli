@@ -37,5 +37,5 @@ def test_task_invalid_deadline_raises_error() -> None:
             id=1,
             title="Bad deadline",
             priority=3,
-            deadline="31-12-2025",  
+            deadline="31-12-2025",
         )

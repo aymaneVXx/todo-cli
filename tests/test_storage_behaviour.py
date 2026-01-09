@@ -1,4 +1,3 @@
-
 from todo_cli.models import Task
 from todo_cli.storage import load_tasks, next_id, save_tasks
 
