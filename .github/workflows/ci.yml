@@ -34,6 +34,23 @@ jobs:
           poetry --version
           poetry install --no-interaction
 
+      - name: Ruff (lint)
+        run: |
+          poetry run ruff check .
+
+      - name: Ruff (format check)
+        run: |
+          poetry run ruff format --check .
+
+      - name: Mypy (type checking)
+        run: |
+          poetry run mypy .
+
+      - name: Secret scan (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: Run unit tests
         run: |
           poetry run pytest -q
